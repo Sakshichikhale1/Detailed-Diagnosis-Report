@@ -14,8 +14,8 @@ class Settings(BaseSettings):
 
     # Computed directories — not from env
     BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
-    OUTPUT_DIR: str = os.path.join(BASE_DIR, "output")
-    STATIC_DIR: str = os.path.join(BASE_DIR, "static")
+    OUTPUT_DIR: str = "/tmp/output" if os.getenv("VERCEL") else os.path.join(BASE_DIR, "output")
+    STATIC_DIR: str = "/tmp/static" if os.getenv("VERCEL") else os.path.join(BASE_DIR, "static")
 
 settings = Settings()
 

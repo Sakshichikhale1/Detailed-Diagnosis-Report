@@ -31,3 +31,8 @@ from api import upload, process, export
 app.include_router(upload.router, prefix="/api")
 app.include_router(process.router, prefix="/api")
 app.include_router(export.router, prefix="/api")
+
+import os
+frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+if os.path.exists(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")

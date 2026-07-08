@@ -8,9 +8,8 @@
      GET  /api/export/pdf        – download PDF
    ===================================================================== */
 
-const API = 'http://localhost:8000/api';
-
-// ─── State ────────────────────────────────────────────────────────────
+// ─── Config & State ────────────────────────────────────────────────────────
+const API = window.location.port === '8080' ? 'http://localhost:8000/api' : '/api';
 let uploadedOk = false;
 let reportData  = null;
 
