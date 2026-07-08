@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DDR – Detailed Diagnostic Report</title>
+  <meta name="description" content="AI-powered Detailed Diagnostic Report system for property inspection and thermal analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── HEADER ──────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🏗️</span>
+        <div>
+          <span class="logo-title">DDR</span>
+          <span class="logo-sub">Detailed Diagnostic Report</span>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge status-idle">● Idle</div>
+    </div>
+  </header>
+
+  <!-- ─── MAIN ─────────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- STEP 1: Upload -->
+    <section class="card" id="uploadSection">
+      <div class="card-header">
+        <span class="step-num">01</span>
+        <div>
+          <h2 class="card-title">Upload Reports</h2>
+          <p class="card-desc">Upload the inspection PDF and thermal PDF to begin analysis.</p>
+        </div>
+      </div>
+
+      <div class="upload-grid">
+        <div class="drop-zone" id="dropInspection" onclick="document.getElementById('fileInspection').click()">
+          <div class="drop-icon">📋</div>
+          <div class="drop-label">Inspection Report</div>
+          <div class="drop-hint">Click or drag &amp; drop PDF</div>
+          <div class="drop-filename" id="nameInspection">No file selected</div>
+          <input type="file" id="fileInspection" accept=".pdf" hidden />
+        </div>
+
+        <div class="drop-zone" id="dropThermal" onclick="document.getElementById('fileThermal').click()">
+          <div class="drop-icon">🌡️</div>
+          <div class="drop-label">Thermal Report</div>
+          <div class="drop-hint">Click or drag &amp; drop PDF</div>
+          <div class="drop-filename" id="nameThermal">No file selected</div>
+          <input type="file" id="fileThermal" accept=".pdf" hidden />
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="btnUpload" disabled>
+        <span class="btn-icon">⬆</span> Upload Files
+      </button>
+      <div class="progress-bar-wrap hidden" id="uploadProgress">
+        <div class="progress-bar" id="uploadProgressBar"></div>
+      </div>
+      <div class="toast" id="uploadToast"></div>
+    </section>
+
+    <!-- STEP 2: Process -->
+    <section class="card" id="processSection">
+      <div class="card-header">
+        <span class="step-num">02</span>
+        <div>
+          <h2 class="card-title">Run AI Analysis</h2>
+          <p class="card-desc">The AI engine will extract, merge and analyse findings from both reports.</p>
+        </div>
+      </div>
+
+      <div class="pipeline-steps">
+        <div class="pipe-step" id="pipe1"><span class="pipe-dot"></span>Parse PDFs</div>
+        <div class="pipe-step" id="pipe2"><span class="pipe-dot"></span>Extract Images</div>
+        <div class="pipe-step" id="pipe3"><span class="pipe-dot"></span>AI Observations</div>
+        <div class="pipe-step" id="pipe4"><span class="pipe-dot"></span>Merge &amp; Severity</div>
+        <div class="pipe-step" id="pipe5"><span class="pipe-dot"></span>Conflicts &amp; Summary</div>
+        <div class="pipe-step" id="pipe6"><span class="pipe-dot"></span>Link Images</div>
+      </div>
+
+      <button class="btn btn-accent" id="btnProcess" disabled>
+        <span class="btn-icon">⚡</span> Run Analysis
+      </button>
+      <div class="toast" id="processToast"></div>
+    </section>
+
+    <!-- STEP 3: Report -->
+    <section class="card hidden" id="reportSection">
+      <div class="card-header">
+        <span class="step-num">03</span>
+        <div>
+          <h2 class="card-title">Diagnostic Report</h2>
+          <p class="card-desc">AI-generated findings ready for review and export.</p>
+        </div>
+        <div class="export-group">
+          <button class="btn btn-sm btn-outline" id="btnExportJson">⬇ JSON</button>
+          <button class="btn btn-sm btn-primary" id="btnExportPdf">⬇ PDF</button>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-grid" id="summaryGrid"></div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="observations">Observations</button>
+        <button class="tab" data-tab="recommendations">Recommendations</button>
+        <button class="tab" data-tab="conflicts">Conflicts</button>
+        <button class="tab" data-tab="missing">Missing Info</button>
+      </div>
+
+      <div class="tab-content" id="tabObservations"></div>
+      <div class="tab-content hidden" id="tabRecommendations"></div>
+      <div class="tab-content hidden" id="tabConflicts"></div>
+      <div class="tab-content hidden" id="tabMissing"></div>
+    </section>
+
+  </main>
+
+  <!-- ─── SPINNER OVERLAY ───────────────────────────────────────────── -->
+  <div class="spinner-overlay hidden" id="spinnerOverlay">
+    <div class="spinner-box">
+      <div class="spinner"></div>
+      <div class="spinner-label" id="spinnerLabel">Processing…</div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

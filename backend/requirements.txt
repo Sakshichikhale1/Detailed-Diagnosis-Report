@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pdfplumber
+pypdf
+Pillow
+groq
+google-genai
+python-docx
+pydantic
+python-multipart
+pydantic-settings
+fpdf2
+python-pptx
